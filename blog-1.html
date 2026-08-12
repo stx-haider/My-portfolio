@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding LLMs: Beneath the Neural Hood | Ehtisham Haider</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-main: #05050f;
+            --primary-color: #6c5ce7;
+            --primary-hover: #5a4bcf;
+            --text-white: #ffffff;
+            --text-muted: #a0a5b1;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-white);
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(5, 5, 15, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .logo-e { color: #5a8cff; }
+        .logo-h { color: var(--primary-color); }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-white);
+        }
+        .btn-connect {
+            background: linear-gradient(90deg, #6c5ce7, #8e44ad);
+            color: var(--text-white);
+            padding: 10px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+        }
+        .blog-post-container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 60px 20px 120px 20px;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: 0.3s;
+        }
+        .back-link:hover {
+            color: var(--text-white);
+            gap: 12px;
+        }
+        .blog-post-header h1 {
+            font-size: 42px;
+            line-height: 1.2;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 20px;
+        }
+        .highlight {
+            color: var(--primary-color);
+            text-shadow: 0 0 20px rgba(108, 92, 231, 0.3);
+        }
+        .blog-post-meta {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            color: var(--text-muted);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 20px;
+        }
+        .blog-banner-img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 1px solid rgba(108, 92, 231, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            margin-bottom: 45px;
+        }
+        .blog-body h2 {
+            font-size: 26px;
+            color: var(--text-white);
+            margin-top: 45px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 15px;
+        }
+        .blog-body p {
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        .blog-quote {
+            background: rgba(108, 92, 231, 0.08);
+            border-left: 4px solid var(--primary-color);
+            padding: 22px 28px;
+            border-radius: 0 12px 12px 0;
+            margin: 35px 0;
+            font-style: italic;
+            color: var(--text-white);
+            font-size: 17px;
+            line-height: 1.6;
+        }
+        .inline-image-section {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            margin: 40px 0;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 16px;
+        }
+        .inline-image-section.reverse {
+            flex-direction: row-reverse;
+        }
+        .inline-image-section img {
+            width: 50%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid rgba(108, 92, 231, 0.3);
+        }
+        .inline-image-text {
+            width: 50%;
+        }
+        .blog-list {
+            margin-bottom: 25px;
+            padding-left: 20px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+        .blog-list li {
+            margin-bottom: 10px;
+        }
+        .blog-list strong {
+            color: var(--text-white);
+        }
+        .blog-footer-ending {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        @media(max-width: 768px) {
+            .blog-post-header h1 { font-size: 32px; }
+            .blog-banner-img { height: 260px; }
+            .inline-image-section, .inline-image-section.reverse { flex-direction: column; }
+            .inline-image-section img, .inline-image-text { width: 100%; }
+            .nav-links { display: none; }
+        }
+       @media(max-width: 768px) {
+    /* Blog content adjustments */
+    .blog-post-header h1 { font-size: 32px; }
+    .blog-banner-img { height: 260px; }
+    .inline-image-section, .inline-image-section.reverse { flex-direction: column; }
+    .inline-image-section img, .inline-image-text { width: 100%; }
+    
+    /* --- Navbar Horizontal Scrollable (Swipe) Fix --- */
+    .navbar {
+        flex-direction: column !important;
+        align-items: center !important;
+        padding: 15px 5% 0 5% !important;
+        gap: 10px !important;
+    }
+
+    /* 3-dots button aur connect button hide kar diye */
+    .menu-toggle, .nav-actions { 
+        display: none !important; 
+    }
+    
+    /* Links ko top par Horizontal Scrollable bana diya */
+    .nav-links {
+        display: flex !important;
+        position: static !important;
+        flex-direction: row !important;
+        width: 100% !important;
+        background: transparent !important;
+        padding: 10px 0 15px 0 !important;
+        gap: 20px !important;
+        border: none !important;
+        max-height: none !important;
+        
+        /* Swipe / Scroll settings */
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        justify-content: flex-start !important;
+        
+        /* Scrollbar hide karne ke liye */
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    
+    .nav-links::-webkit-scrollbar {
+        display: none; /* Chrome/Safari mein scrollbar hide */
+    }
+
+    .nav-links a {
+        font-size: 14px !important;
+    }
+}
+       
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <span class="logo-e">E</span><span class="logo-h">H</span>
+        </div>
+        <nav class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="skills.html">Skills</a>
+            <a href="projects.html">Projects</a>
+            <a href="experience.html">Experience</a>
+            <a href="blog.html" class="active">Blog</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <div class="nav-actions">
+            <a href="contact.html" class="btn-connect">Let's Connect</a>
+        </div>
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fa-solid fa-bars-staggered"></i>
+        </button>
+    </header>
+
+    <main class="blog-post-container">
+        <a href="blog.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to AI Journal</a>
+        
+        <div class="blog-post-header">
+            <h1 class="highlight">Understanding LLMs: Beneath the Neural Hood & Attention Mechanics</h1>
+            <div class="blog-post-meta">
+                <span><i class="fa-solid fa-tag"></i> AI Architectures</span>
+                <span>&bull;</span>
+                <span><i class="fa-regular fa-clock"></i> 8 min read</span>
+                <span>&bull;</span>
+                <span>By Ehtisham Haider</span>
+            </div>
+        </div>
+
+        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1200&auto=format&fit=crop" alt="Understanding LLMs Neural Architecture" class="blog-banner-img">
+
+        <div class="blog-body">
+            <p>To the casual observer, conversing with a Large Language Model (LLM) feels like interacting with a sentient, conscious entity capable of abstract reasoning. However, when we inspect the underlying infrastructure through an engineer's lens, we discover an astonishing orchestration of multi-dimensional tensor manifolds, linear algebra transformations, and massive autoregressive probability estimations.</p>
+
+            <!-- HEADING 1 -->
+            <h2>1. The Illusion of Semantics vs. Tensor Mathematics</h2>
+            <p>Silicon processors do not possess innate comprehension of human language; they manipulate numbers. Every linguistic prompt submitted to an artificial intelligence engine is instantly translated into dense numerical matrices. Words do not exist inside weights and biases as strings of characters, but rather as spatial data points across thousands of latent dimensions.</p>
+            
+            <div class="blog-quote">
+                "An LLM does not possess subjective understanding; it navigates a vast mathematical probability space where semantics emerge purely from geometric clustering."
+            </div>
+
+            <p>When an inference call is executed, the neural network calculates complex probability distributions over its entire vocabulary to determine the exact mathematical weights for succeeding tokens, manifesting synthetic intelligence through rigorous calculus.</p>
+
+            <!-- HEADING 2 -->
+            <h2>2. Byte-Pair Encoding & The Tokenization Engine</h2>
+            <p>Before raw character strings can engage with attention layers, they must pass through the tokenizer. Algorithms like Byte-Pair Encoding (BPE) break down sentences into sub-word tokens based on statistical frequency tables generated during pre-training phases.</p>
+
+            <div class="inline-image-section">
+                <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=800&auto=format&fit=crop" alt="Data Pipeline and Code">
+                <div class="inline-image-text">
+                    <p style="margin-bottom: 0; font-size: 14px;"><strong>Sub-Word Segmentation:</strong> Tokenizers optimize vocabularies by merging frequent character sequences, allowing models to process rare words without expanding memory footprints.</p>
+                </div>
+            </div>
+
+            <p>This systematic segmentation ensures that even unfamiliar terminology, source code, or multilingual characters can be broken into identifiable numerical index tokens, mapping directly into the model's high-dimensional embedding space.</p>
+
+            <!-- HEADING 3 -->
+            <h2>3. The Self-Attention Matrix & Contextual Weights</h2>
+            <p>Traditional recurrent networks processed textual sequences linearly, creating severe computational bottlenecks over long documents. The Transformer architecture obliterated this limitation by introducing global self-attention mechanisms.</p>
+            
+            <div class="blog-quote">
+                "Self-attention liberates language models from sequential processing, allowing every single word to evaluate its relationship with all other surrounding tokens instantly."
+            </div>
+
+            <p>Through Query, Key, and Value ($Q, K, V$) matrices, the network computes dot-product attention scores. This mathematical weighting dictates how much focus one token should direct toward another, seamlessly capturing deep grammatical nuances and distant contextual references.</p>
+
+            <!-- HEADING 4 -->
+            <h2>4. Inference Optimization: KV-Caching & Quantization</h2>
+            <p>Building local automation pipelines and custom AI agents requires deep awareness of hardware constraints. Generating autoregressive tokens sequentially forces models to recalculate past activations unless aggressive optimization strategies are deployed.</p>
+
+            <div class="inline-image-section reverse">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop" alt="Hardware Acceleration">
+                <div class="inline-image-text">
+                    <p style="margin-bottom: 0; font-size: 14px;"><strong>Hardware Efficiency:</strong> KV-Caching stores historical key-value states in VRAM, eliminating redundant computations and accelerating text generation speeds significantly.</p>
+                </div>
+            </div>
+
+            <p>Furthermore, techniques like GGUF quantization compress floating-point weights down to lower bit depths (such as INT4 or INT8), enabling massive language models to execute smoothly on standard developer laptops without requiring server-grade GPUs.</p>
+
+            <!-- HEADING 5 -->
+            <h2>5. Mitigating Hallucinations via RAG Architectures</h2>
+            <p>Because foundational models rely on static training datasets, they remain inherently susceptible to factual hallucinations when questioned about real-time or hyper-specific domain knowledge. Retrieval-Augmented Generation (RAG) solves this vulnerability completely.</p>
+            
+            <div class="blog-quote">
+                "By integrating external vector databases with real-time semantic search, RAG anchors probabilistic neural generation into strict, verifiable factual boundaries."
+            </div>
+
+            <p>Instead of relying purely on parametric memory, a RAG pipeline fetches matching contextual documents from external storage at query time, injecting verified facts directly into the prompt context window before inference occurs.</p>
+
+            
+            <!-- HEADING 6 -->
+            <h2>6. The Paradigm Shift Toward Edge & Local AI Agents</h2>
+            <p>As open-weight models become increasingly compact, optimized, and hardware-efficient, the broader developer ecosystem is undergoing a fundamental architectural shift. Rather than remaining entirely dependent on centralized cloud infrastructure, engineering teams are rapidly adopting localized edge deployment to achieve total privacy, zero network latency, and complete operational independence.</p>
+            
+            <div class="blog-quote">
+                "Decoupling artificial intelligence from centralized cloud servers opens the door to sovereign computing, where autonomous models execute directly on local silicon with absolute privacy."
+            </div>
+
+            <p>Running offline intelligence engines via local runtimes unlocks unprecedented capabilities, ranging from lightning-fast automated desktop scripts to secure local data processing that never leaves the physical machine. This local-first philosophy empowers developers to build ambient computing solutions that function seamlessly even without internet connectivity, eliminating recurring API subscription costs and bandwidth constraints entirely.</p>
+            
+            <p>With the proliferation of specialized neural processing units (NPUs) built directly into modern consumer hardware—from advanced laptop chips to dedicated desktop GPUs and edge boards—running complex models locally has transitioned from a theoretical concept into a high-performance daily reality. Developers can now orchestrate custom multi-agent workflows that run completely offline, securing enterprise-grade confidentiality and total system control.</p>
+
+            <p>Ultimately, mastering these foundational architecture layers transforms software engineers from passive API consumers into true master architects of sophisticated, autonomous, privacy-first, and lightning-fast artificial intelligence ecosystems.</p>
+
+            <!-- Centered Ending Line -->
+            <div class="blog-footer-ending">
+                <span>&bull; &bull; &bull; End of Transmission &bull; &bull; &bull;</span>
+            </div>
+        </div>
+    </main>
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars-staggered');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars-staggered');
+            }
+        });
+    </script>
+
+
+</body>
+</html>

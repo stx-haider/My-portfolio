@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Ehtisham Haider</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navbar Section -->
+    <header class="navbar">
+        <div class="logo">
+            <span class="logo-e">E</span><span class="logo-h">H</span>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="skills.html">Skills</a>
+            <a href="projects.html">Projects</a>
+            <a href="experience.html">Experience</a>
+            <a href="blog.html" class="active">Blog</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+            <a href="contact.html" class="btn-connect">Let's Connect</a>
+            <button class="theme-toggle">
+                <i class="fa-regular fa-moon"></i>
+            </button>
+            <button class="mobile-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Blog Section -->
+    <section class="blog-section">
+        
+        <!-- Subtle Neural Network CSS Particles Background -->
+        <div class="neural-bg">
+            <div class="node node-1"></div>
+            <div class="node node-2"></div>
+            <div class="node node-3"></div>
+            <div class="node node-4"></div>
+            <div class="node node-5"></div>
+        </div>
+
+        <div class="blog-container">
+            
+            <!-- Blog Header -->
+            <div class="blog-header">
+                <h2 class="section-title">My AI <span class="highlight">Journal</span></h2>
+                <p class="about-desc">
+                    Thoughts, experiments & lessons from my journey in AI & Machine Learning.
+                </p>
+            </div>
+
+            <!-- Blog Category Filters -->
+            <div class="blog-filters">
+                <button class="filter-btn active">All</button>
+                <button class="filter-btn">AI/ML</button>
+                <button class="filter-btn">Python</button>
+                <button class="filter-btn">Data Science</button>
+                <button class="filter-btn">Career</button>
+            </div>
+
+            <!-- Blog 3-Column Grid -->
+            <!-- Blog 3-Column Grid -->
+            <div class="blog-grid">
+                
+                <!-- Blog Card 1 -->
+                <div class="blog-card">
+                    <span class="blog-number">01</span>
+                    <div class="blog-icon"><i class="fa-solid fa-brain"></i></div>
+                    <div class="blog-meta">AI/ML &middot; 5 min read</div>
+                    <h3 class="blog-title">Understanding LLMs</h3>
+                    <p class="blog-desc">A beginner-friendly look at how Large Language Models work under the hood and process human language.</p>
+                    <a href="blog-1.html" class="blog-read-btn">Read Article &nbsp;<i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Blog Card 2 -->
+                <div class="blog-card">
+                    <span class="blog-number">02</span>
+                    <div class="blog-icon"><i class="fa-solid fa-microchip"></i></div>
+                    <div class="blog-meta">AI Engineering &middot; 7 min read</div>
+                    <h3 class="blog-title">Building My Own JARVIS</h3>
+                    <p class="blog-desc">How I built a personal AI assistant with Gemini, Ollama and Python featuring deep OS integration.</p>
+                    <a href="blog-2.html" class="blog-read-btn">Read Article &nbsp;<i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Blog Card 3 -->
+                <div class="blog-card">
+                    <span class="blog-number">03</span>
+                    <div class="blog-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <div class="blog-meta">Career &middot; 4 min read</div>
+                    <h3 class="blog-title">From Data Analyst to AI Engineer</h3>
+                    <p class="blog-desc">My transition journey, what I'm learning, and the challenges of building scalable AI solutions.</p>
+                    <a href="blog-3.html" class="blog-read-btn">Read Article &nbsp;<i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+            </div>
+
+            <!-- Call to Action (Bottom) -->
+            <div class="blog-cta">
+                <p>Curious about what I'm building?</p>
+                <a href="projects.html" class="btn-primary">Explore my projects &nbsp;<i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+        </div>
+    </section>
+    <script src="script.js"></script>
+
+</body>
+</html>
