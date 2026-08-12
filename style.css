@@ -273,7 +273,7 @@ body {
     transform: translateY(-3px);
 }
 
-/* Scroll Down - Ab yahan se bilkul gayab ho jayega */
+/* Scroll Down */
 .scroll-down {
     display: none !important; 
 }
@@ -292,7 +292,6 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Image ko left side se black mein fade karne ka magic */
     -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
     mask-image: linear-gradient(to left, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
     opacity: 0.6;
@@ -300,21 +299,21 @@ body {
 
 /* --- STATS SECTION --- */
 .stats-section {
+    position: relative !important;
+    /* Duplicate margins hata diye hain, bas ek hi margin rakha hai */
+    margin: -10px 5% 60px 5% !important; 
+    transform: none !important;
+    width: 90% !important;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 25px 40px;
-    
-    /* Yahan pehle -40px tha, ab maine isay -10px kar diya hai taake bar thora neechay aa jaye */
-    margin: -10px 5% 60px; 
-    
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid var(--border-color);
     border-radius: 16px;
     backdrop-filter: blur(10px); 
     flex-wrap: wrap;
     gap: 20px;
-    position: relative;
     z-index: 10; 
 }
 
@@ -344,30 +343,34 @@ body {
 }
 
 @media (max-width: 991px) {
+    /* --- Mobile ke liye Hero Padding Khatam ki --- */
+    .hero {
+        padding-bottom: 0px !important;
+    }
+
     /* --- Stats Box Full Vertical Column Fix --- */
     .stats-section {
         position: relative !important;
-        margin: 20px auto 40px auto !important;
+        /* YAHAN -40px KIYA HAI TAAKE MOBILE PAR BOX OOPER JAYE */
+        margin: -20px auto 40px auto !important; 
         transform: none !important;
         width: 92% !important;
         display: flex !important;
-        flex-direction: column !important; /* Sab ko aik column mein kar diya */
-        gap: 20px !important; /* Har item ke darmiyan barabar fasla */
+        flex-direction: column !important; 
+        gap: 20px !important; 
         padding: 25px 20px !important;
         box-sizing: border-box !important;
     }
 
-    /* Ab saare items (1 se le kar 5 tak) full width lenge aur aik ke neechay aik aayenge */
     .stats-section .stat-item {
         width: 100% !important;
         display: flex !important;
         flex-direction: row !important;
         align-items: center !important;
         justify-content: flex-start !important;
-        gap: 15px !important; /* Icon aur text ke darmiyan fasla */
+        gap: 15px !important; 
     }
 
-    /* Text (Number aur Heading) ko ooper-neechay stack karne ke liye */
     .stats-section .stat-info {
         display: flex !important;
         flex-direction: column !important;
@@ -375,7 +378,6 @@ body {
         justify-content: center !important;
     }
 
-    /* Icons ka size aur fixed jagah */
     .stats-section .stat-item i,
     .stats-section .stat-item .icon {
         font-size: 24px !important;
@@ -383,14 +385,12 @@ body {
         text-align: center !important;
     }
 
-    /* Number ka font size */
     .stats-section .stat-info h3 {
         font-size: 22px !important;
         margin: 0 0 4px 0 !important;
         line-height: 1 !important;
     }
 
-    /* Neechay walay chotay text ka size */
     .stats-section .stat-info p {
         font-size: 12px !important;
         margin: 0 !important;
